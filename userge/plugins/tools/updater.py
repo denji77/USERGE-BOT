@@ -69,7 +69,7 @@ async def check_update(message: Message):
             change_log = f'**New UPDATE available for [{branch}]:\n\n📄 CHANGELOG 📄**\n\n'
             await message.edit_or_send_as_file(change_log + out, disable_web_page_preview=True)
         else:
-            await message.edit(f'**Userge is up-to-date with [{branch}]**', del_in=5)
+            await message.edit(f'**Userbot is up-to-date with [{branch}]**', del_in=5)
         return
     if pull_from_repo:
         if out:
