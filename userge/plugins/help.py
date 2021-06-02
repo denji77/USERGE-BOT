@@ -359,7 +359,7 @@ if userge.has_bot:
                 ),
                 url="https://github.com/UsergeTeam/Userge",
                 description="Setup Your Own",
-                thumb_url="https://imgur.com/download/Inyeb1S",
+                thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
@@ -384,7 +384,7 @@ if userge.has_bot:
                     ),
                     url="https://github.com/UsergeTeam/Userge",
                     description="Userge Main Menu",
-                    thumb_url="https://imgur.com/download/Inyeb1S",
+                    thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
                 )
             )
@@ -409,7 +409,7 @@ if userge.has_bot:
                         title=f"A Private Msg to {user.first_name}",
                         input_message_content=InputTextMessageContent(msg_c),
                         description="Only he/she can open it",
-                        thumb_url="https://imgur.com/download/Inyeb1S",
+                        thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                         reply_markup=InlineKeyboardMarkup(prvte_msg)
                     )
                 )
@@ -431,7 +431,7 @@ if userge.has_bot:
                         title="Pm Permit",
                         input_message_content=InputTextMessageContent(text),
                         description="Inline Pm Permit Handler",
-                        thumb_url="https://imgur.com/download/Inyeb1S",
+                        thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                         reply_markup=InlineKeyboardMarkup(buttons)
                     )
                 )
