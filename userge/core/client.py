@@ -26,7 +26,7 @@ from userge.utils.exceptions import UsergeBotNotFound
 from userge.plugins import get_all_plugins
 from .methods import Methods
 from .ext import RawClient, pool
-from .database import _close_db
+from .database import get_collection, _close_db
 
 _LOG = logging.getLogger(__name__)
 _LOG_STR = "<<<!  #####  %s  #####  !>>>"
@@ -35,6 +35,23 @@ _IMPORTED: List[ModuleType] = []
 _INIT_TASKS: List[asyncio.Task] = []
 _START_TIME = time.time()
 _SEND_SIGNAL = False
+
+_USERGE_STATUS = get_collection("USERGE_STATUS")
+
+
+async def _set_running(is_running: bool) -> None:
+    await _USERGE_STATUS.update_one(
+        {'_id': 'USERGE_STATUS'},
+        {"$set": {'is_running': is_running}},
+        upsert=True
+    )
+
+
+async def _is_running() -> bool:
+    data = await _USERGE_STATUS.find_one({'_id': 'USERGE_STATUS'})
+    if data:
+        return bool(data['is_running'])
+    return False
 
 
 async def _complete_init_tasks() -> None:
@@ -45,6 +62,12 @@ async def _complete_init_tasks() -> None:
 
 
 class _AbstractUserge(Methods, RawClient):
+    @property
+    def id(self) -> int:
+        if self.is_bot:
+            return RawClient.BOT_ID
+        return RawClient.USER_ID
+
     @property
     def is_bot(self) -> bool:
         """ returns client is bot or not """
@@ -105,6 +128,12 @@ class _AbstractUserge(Methods, RawClient):
         await self.finalize_load()
         return len(reloaded)
 
+    def __eq__(self, o: object) -> bool:
+        return isinstance(o, _AbstractUserge) and self.id == o.id
+
+    def __hash__(self) -> int:
+        return super().__hash__()
+
 
 class UsergeBot(_AbstractUserge):
     """ UsergeBot, the bot """
@@ -141,6 +170,10 @@ class Userge(_AbstractUserge):
         self.executor = pool._get()  # pylint: disable=protected-access
 
     @property
+    def dual_mode(self) -> bool:
+        return RawClient.DUAL_MODE
+
+    @property
     def bot(self) -> Union['UsergeBot', 'Userge']:
         """ returns usergebot """
         if self._bot is None:
@@ -151,7 +184,25 @@ class Userge(_AbstractUserge):
 
     async def start(self) -> None:
         """ start client and bot """
+        counter = 0
+        timeout = 30  # 30 sec
+        max_ = 3600  # 1 hour
+
+        while True:
+            if await _is_running():
+                _LOG.info(_LOG_STR, "Waiting for the Termination of "
+                                    f"previous Userge instance ... [{timeout} sec]")
+                time.sleep(timeout)
+
+                counter += timeout
+                if counter < max_:
+                    continue
+
+                _LOG.info(_LOG_STR, f"Max timeout reached ! [{max_} sec]")
+            break
+
         _LOG.info(_LOG_STR, "Starting Userge")
+        await _set_running(True)
         await super().start()
         if self._bot is not None:
             _LOG.info(_LOG_STR, "Starting UsergeBot")
@@ -165,6 +216,7 @@ class Userge(_AbstractUserge):
             await self._bot.stop()
         _LOG.info(_LOG_STR, "Stopping Userge")
         await super().stop()
+        await _set_running(False)
         _close_db()
         pool._stop()  # pylint: disable=protected-access
 
