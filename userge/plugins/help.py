@@ -96,7 +96,7 @@ if userge.has_bot:
             else:
                 user_dict = await userge.bot.get_user_dict(Config.OWNER_ID[0])
                 await c_q.answer(
-                    f"Only {user_dict['flname']} Can Access this...! Build Your Own @TheUserge 🤘",
+                    f"Only {user_dict['flname']} Can Access this...! Go away 😅",
                     show_alert=True)
         return wrapper
 
@@ -130,7 +130,7 @@ if userge.has_bot:
             await callback_query.answer("you are in main menu", show_alert=True)
             return
         if len(pos_list) == 2:
-            text = "🖥 **Userge Main Menu** 🖥"
+            text = "🖥 **Userbot Main Menu** 🖥"
             buttons = main_menu_buttons()
         elif len(pos_list) == 3:
             text, buttons = category_data(cur_pos)
@@ -178,7 +178,7 @@ if userge.has_bot:
     @check_owner
     async def callback_mm(callback_query: CallbackQuery):
         await callback_query.edit_message_text(
-            "🖥 **Userge Main Menu** 🖥", reply_markup=InlineKeyboardMarkup(main_menu_buttons()))
+            "🖥 **Userbot Main Menu** 🖥", reply_markup=InlineKeyboardMarkup(main_menu_buttons()))
 
     @userge.bot.on_callback_query(filters=filters.regex(pattern=r"^chgclnt$"))
     @check_owner
