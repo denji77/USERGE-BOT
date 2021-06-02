@@ -355,20 +355,20 @@ if userge.has_bot:
                 id=uuid4(),
                 title="Repo",
                 input_message_content=InputTextMessageContent(
-                    "**Here's how to setup Userge** 😎"
+                    "**Here's how to setup me** 😎"
                 ),
-                url="https://github.com/UsergeTeam/Userge",
+                url="https://github.com/MR-SHRLCK/USERGR-BOT",
                 description="Setup Your Own",
                 thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                "🧰 Userge Repo",
-                                url="https://github.com/UsergeTeam/Userge"),
+                                "🧰 MY Repo",
+                                url="https://github.com/MR-SHRLCK/USERGE-bot"),
                             InlineKeyboardButton(
-                                "🖥 Deploy Userge",
-                                url="https://t.me/theUserge/102")
+                                "🖥 Deploy me",
+                                url="https://t.me/kurup_tg")
                         ]
                     ]
                 )
@@ -380,10 +380,10 @@ if userge.has_bot:
                     id=uuid4(),
                     title="Main Menu",
                     input_message_content=InputTextMessageContent(
-                        "🖥 **Userge Main Menu** 🖥"
+                        "🖥 **Userbot Main Menu** 🖥"
                     ),
-                    url="https://github.com/UsergeTeam/Userge",
-                    description="Userge Main Menu",
+                    url="https://github.com/MR-SHRLCK/USERGE-BOT",
+                    description="Userbot Main Menu",
                     thumb_url="https://telegra.ph/file/25d14d7f3f7703e43cc4e.jpg",
                     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
                 )
