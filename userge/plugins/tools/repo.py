@@ -15,11 +15,12 @@ async def see_repo(message: Message):
     output = f"""
 **Heya 🤗**, __I am using__ 🎁 **__Nivya__**🎁
 
-    __Durable as a Serge__
+    __Im so cute 🥰__
 
 • **nivya version** : `{get_version()}`
 • **license** : {versions.__license__}
 • **copyright** : {versions.__copyright__}
 • **repo** : [Userge]({Config.UPSTREAM_REPO})
+• **edited repo** : [click here](https://github.com/Mr-SHRLCK/USERGE-BOT)
 """
     await message.edit(output)
