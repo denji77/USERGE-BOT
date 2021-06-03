@@ -15,6 +15,7 @@ from typing import Set
 
 import heroku3
 from git import Repo
+from telethon import TelegramClient
 from pyrogram import filters
 
 from userge import logging, logbot
