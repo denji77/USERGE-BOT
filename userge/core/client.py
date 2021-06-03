@@ -18,6 +18,7 @@ import importlib
 from types import ModuleType
 from typing import List, Awaitable, Any, Optional, Union
 
+from telethon import TelegramClient
 from pyrogram import idle
 
 from userge import logging, Config, logbot
