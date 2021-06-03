@@ -26,8 +26,7 @@ SONGBOT_BLOCKED_STRING = "<code>Please unblock @songdl_bot and try again</code>"
 # =========================================================== #
 
 
-@bot.on(admin_cmd(pattern="(song|song320)($| (.*))"))
-@bot.on(sudo_cmd(pattern="(song|song320)($| (.*))", allow_sudo=True))
+@userge.on_cmd(pattern="(song|song320)($| (.*))"))
 async def _(event):
     if event.fwd_from:
         return
@@ -107,8 +106,7 @@ async def delete_messages(event, chat, from_message):
     await event.client.send_read_acknowledge(chat)
 
 
-@bot.on(admin_cmd(pattern="vsong( (.*)|$)"))
-@bot.on(sudo_cmd(pattern="vsong( (.*)|$)", allow_sudo=True))
+@userge.on_cmd(pattern="vsong( (.*)|$)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -175,8 +173,7 @@ async def _(event):
             os.remove(files)
 
 
-@bot.on(admin_cmd(pattern="song2 (.*)"))
-@bot.on(sudo_cmd(pattern="song2 (.*)", allow_sudo=True))
+@userge.on_cmd(pattern="song2 (.*)"))
 async def cat_song_fetcer(event):
     if event.fwd_from:
         return
@@ -219,37 +216,5 @@ async def cat_song_fetcer(event):
         )
         await catevent.delete()
         await delete_messages(event, chat, purgeflag)
-
-
-@bot.on(admin_cmd(pattern="szm$", outgoing=True))
-@bot.on(sudo_cmd(pattern="szm$", allow_sudo=True))
-async def _(event):
-    if event.fwd_from:
-        return
-    if not event.reply_to_msg_id:
-        await edit_delete(event, "```Reply to an audio message.```")
-        return
-    reply_message = await event.get_reply_message()
-    chat = "@auddbot"
-    catevent = await edit_or_reply(event, "```Identifying the song```")
-    async with event.client.conversation(chat) as conv:
-        try:
-            await conv.send_message("/start")
-            await conv.get_response()
-            await conv.send_message(reply_message)
-            check = await conv.get_response()
-            if not check.text.startswith("Audio received"):
-                return await catevent.edit(
-                    "An error while identifying the song. Try to use a 5-10s long audio message."
-                )
-            await catevent.edit("Wait just a sec...")
-            result = await conv.get_response()
-            await event.client.send_read_acknowledge(conv.chat_id)
-        except YouBlockedUserError:
-            await catevent.edit("```Please unblock (@auddbot) and try again```")
-            return
-    namem = f"**Song Name : **`{result.text.splitlines()[0]}`\
-        \n\n**Details : **__{result.text.splitlines()[2]}__"
-    await catevent.edit(namem)
 
 
