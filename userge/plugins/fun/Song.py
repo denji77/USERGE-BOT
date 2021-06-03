@@ -27,6 +27,9 @@ SONGBOT_BLOCKED_STRING = "<code>Please unblock @songdl_bot and try again</code>"
 
 
 @userge.on_cmd(pattern="(song|song320)($| (.*))"))
+about={
+    'header': "Quote a message",
+    'usage': "{tr}quote [text or reply to msg]"}, allow_via_bot=False)
 async def _(event):
     if event.fwd_from:
         return
