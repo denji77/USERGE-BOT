@@ -22,5 +22,6 @@ async def see_repo(message: Message):
 • **copyright** : {versions.__copyright__}
 • **repo** : [Userge]({Config.UPSTREAM_REPO})
 • **edited repo** : [click here](https://github.com/Mr-SHRLCK/USERGE-BOT)
+• **heroku support link** : [click here](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Frking32%2FHelperScript)
 """
     await message.edit(output)
