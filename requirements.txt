@@ -45,4 +45,4 @@ youtube_dl>=2021.1.8
 youtube-search-python
 telethon
 youtube_dl
-telethon-tgcrypto
+
