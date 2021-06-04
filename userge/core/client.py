@@ -202,20 +202,20 @@ class Userge(_AbstractUserge):
                 _LOG.info(_LOG_STR, f"Max timeout reached ! [{max_} sec]")
             break
 
-        _LOG.info(_LOG_STR, "Starting Userge")
+        _LOG.info(_LOG_STR, "Starting Userbot 🎃")
         await _set_running(True)
         await super().start()
         if self._bot is not None:
-            _LOG.info(_LOG_STR, "Starting UsergeBot")
+            _LOG.info(_LOG_STR, "Starting UserBot 🎃")
             await self._bot.start()
         await self._load_plugins()
 
     async def stop(self) -> None:  # pylint: disable=arguments-differ
         """ stop client and bot """
         if self._bot is not None:
-            _LOG.info(_LOG_STR, "Stopping UsergeBot")
+            _LOG.info(_LOG_STR, "Stopping UserBot 😴")
             await self._bot.stop()
-        _LOG.info(_LOG_STR, "Stopping Userge")
+        _LOG.info(_LOG_STR, "Stopping UserBot 😴")
         await super().stop()
         await _set_running(False)
         _close_db()
@@ -254,7 +254,7 @@ class Userge(_AbstractUserge):
         self.loop.run_until_complete(self.start())
         for task in self._tasks:
             running_tasks.append(self.loop.create_task(task()))
-        logbot.edit_last_msg("Userge has Started Successfully !")
+        logbot.edit_last_msg("Userbot has Started Successfully 🙃!")
         logbot.end()
         mode = "[DUAL]" if RawClient.DUAL_MODE else "[BOT]" if Config.BOT_TOKEN else "[USER]"
         try:
